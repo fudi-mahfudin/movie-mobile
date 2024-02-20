@@ -11,11 +11,19 @@ import React from "react";
 import { styles } from "@/theme";
 import { useNavigation } from "@react-navigation/native";
 import { MovieNavigationProps } from "@/navigation/AppNavigation";
+import { fallbackImage, image185 } from "@/api/moviedb";
+import { MovieIndexProps } from "@/interfaces/MovieList";
+import { PersonMovieProps } from "@/interfaces/Person";
 
 const { width, height } = Dimensions.get("window");
 
+type Props = {
+  title: string;
+  data: MovieIndexProps[] | PersonMovieProps[];
+  hideSeeAll?: boolean;
+};
+
 const MovieList = ({ title, data, hideSeeAll }: Props) => {
-  const movieName = "Glass Onion: A Knives Out Mystery";
   const navigation = useNavigation<MovieNavigationProps>();
 
   return (
@@ -39,18 +47,19 @@ const MovieList = ({ title, data, hideSeeAll }: Props) => {
         {data.map((item, index) => (
           <TouchableWithoutFeedback
             key={index}
-            onPress={() => navigation.navigate("Movie", { item })}
+            onPress={() => navigation.navigate("Movie", { movieId: item.id })}
           >
             <View className="space-y-1 mr-4">
               <Image
-                source={require("@/assets/images/moviePoster1.jpg")}
+                source={{ uri: image185(item.poster_path) || fallbackImage }}
                 className="rounded-3xl"
                 style={{ width: width * 0.33, height: height * 0.22 }}
+                testID={`${title.replaceAll(" ", "").toLowerCase()}-image`}
               />
               <Text className="text-neutral-300 ml-1">
-                {movieName.length > 14
-                  ? movieName.slice(0, 14) + "..."
-                  : movieName}
+                {item.title.length > 14
+                  ? item.title.slice(0, 14) + "..."
+                  : item.title}
               </Text>
             </View>
           </TouchableWithoutFeedback>
@@ -61,9 +70,3 @@ const MovieList = ({ title, data, hideSeeAll }: Props) => {
 };
 
 export default MovieList;
-
-type Props = {
-  title: string;
-  data: number[];
-  hideSeeAll?: boolean;
-};

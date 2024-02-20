@@ -1,5 +1,4 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
@@ -13,39 +12,37 @@ const Stack = createNativeStackNavigator();
 
 const AppNavigation = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          name="Home"
-          options={{ headerShown: false }}
-          component={HomeScreen}
-        />
-        <Stack.Screen
-          name="Movie"
-          options={{ headerShown: false }}
-          component={MovieScreen}
-        />
-        <Stack.Screen
-          name="Person"
-          options={{ headerShown: false }}
-          component={PersonScreen}
-        />
-        <Stack.Screen
-          name="Search"
-          options={{ headerShown: false }}
-          component={SearchScreen}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen
+        name="Home"
+        options={{ headerShown: false }}
+        component={HomeScreen}
+      />
+      <Stack.Screen
+        name="Movie"
+        options={{ headerShown: false }}
+        component={MovieScreen}
+      />
+      <Stack.Screen
+        name="Person"
+        options={{ headerShown: false }}
+        component={PersonScreen}
+      />
+      <Stack.Screen
+        name="Search"
+        options={{ headerShown: false }}
+        component={SearchScreen}
+      />
+    </Stack.Navigator>
   );
 };
 
 export default AppNavigation;
 
-type RootStackParamList = {
+export type RootStackParamList = {
   Home: undefined;
-  Movie: { item: number } | undefined;
-  Person: undefined;
+  Movie: { movieId: number };
+  Person: { personId: number };
   Search: undefined;
 };
 
