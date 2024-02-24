@@ -1,13 +1,6 @@
 import AppNavigation from "@/navigation/AppNavigation";
-import HomeScreen from "@/screens/HomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  userEvent,
-} from "@testing-library/react-native";
+import { render, screen, userEvent } from "@testing-library/react-native";
 
 describe("AppNavigation", () => {
   test("render correctly", async () => {
